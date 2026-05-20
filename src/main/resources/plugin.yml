@@ -1,0 +1,11 @@
+name: AxCalendar
+description: $description
+prefix: AxCalendar
+version: '${version}'
+
+main: de.jaunikapauni.axcalendar.AxCalendar
+api-version: '26.1.2'
+load: POSTWORLD
+
+authors: [ JauniKapauni ]
+website: https://github.com/JauniKapauni
