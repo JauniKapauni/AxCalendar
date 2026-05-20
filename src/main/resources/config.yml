@@ -1,0 +1,4 @@
+calendar:
+  day1:
+    name: /plugins
+    command: plugins
