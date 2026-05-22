@@ -15,6 +15,7 @@ public final class AxCalendar extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
+        saveDefaultConfig();
         getCommand("calendar").setExecutor(new CalendarCommand(this));
         getServer().getPluginManager().registerEvents(new InventoryClickListener(this), this);
     }
