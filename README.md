@@ -8,7 +8,7 @@
 ---
 ## Installation
 1. Download the latest release
-2. Put the `.jar` into the `/plugins` folder of every server to be synchronized
+2. Put the `.jar` into the `/plugins` folder of server
 3. Start the server
 ---
 ## Support
