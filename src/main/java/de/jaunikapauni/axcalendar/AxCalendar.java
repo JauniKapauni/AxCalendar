@@ -31,6 +31,13 @@ public final class AxCalendar extends JavaPlugin {
         }
         getCommand("calendar").setExecutor(new CalendarCommand(this));
         getServer().getPluginManager().registerEvents(new InventoryClickListener(this), this);
+        getLogger().info("");
+        getLogger().info("----------------------------------------");
+        getLogger().info("Name: " + getName());
+        getLogger().info("Version: " + getDescription().getVersion());
+        getLogger().info(String.join("Authors: " + ", ", getDescription().getAuthors()));
+        getLogger().info("----------------------------------------");
+        getLogger().info("");
     }
 
     @Override
