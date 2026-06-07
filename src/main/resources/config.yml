@@ -2,3 +2,9 @@ calendar:
   day1:
     name: /plugins
     command: plugins
+database:
+  host: localhost
+  port: 3306
+  database: axcalendar
+  username: root
+  password:
