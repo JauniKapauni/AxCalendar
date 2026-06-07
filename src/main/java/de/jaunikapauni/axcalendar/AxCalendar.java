@@ -39,7 +39,7 @@ public final class AxCalendar extends JavaPlugin {
     }
 
     public void openCalendarGUI(Player p){
-        Inventory gui = Bukkit.createInventory(null, 9, "Inventory");
+        Inventory gui = Bukkit.createInventory(null, 9, "Calendar");
         ItemStack reward = new ItemStack(Material.COAL_BLOCK);
         ItemMeta meta = reward.getItemMeta();
         meta.setDisplayName(getConfig().getString("calendar.day1.name"));
