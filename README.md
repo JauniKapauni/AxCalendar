@@ -1,6 +1,10 @@
 # AxCalendar
 >Minecraft plugin to open a gui and be able to configure custom rewards for daily login
 ---
+## Requirements
+- Minecraft Paper 26.1.2 Server
+- MariaDB / MySQL Server
+---
 ## Features
 - Calendar GUI
   - Customize name
