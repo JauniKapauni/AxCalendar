@@ -43,6 +43,7 @@ public final class AxCalendar extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        databaseManager.close();
     }
 
     public void openCalendarGUI(Player p){
