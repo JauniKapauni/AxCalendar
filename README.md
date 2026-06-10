@@ -15,8 +15,13 @@
 2. Put the `.jar` into the `/plugins` folder of server
 3. Start the server
 ---
+## Commands & Permissions
+- `/calendar` - `axcalendar.calendar`
+---
 ## Support
+
 Discord: [AxForge](https://discord.gg/rYSxV4daS8)
+
 ---
 ## License
 AxCalendar is licensed under the permissive MIT License. Please see [LICENSE](https://github.com/JauniKapauni/AxCalendar/blob/master/LICENSE) for more info.
