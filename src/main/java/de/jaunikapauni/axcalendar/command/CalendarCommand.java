@@ -20,7 +20,7 @@ public class CalendarCommand implements CommandExecutor {
         }
         Player p = (Player) sender;
         if(!p.hasPermission("axcalendar.calendar")){
-            p.sendMessage("You don't have the permission!");
+            p.sendMessage("You don't have the permission! [axcalendar.calendar]");
             return true;
         }
         reference.openCalendarGUI(p);
