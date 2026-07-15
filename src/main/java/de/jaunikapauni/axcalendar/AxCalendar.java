@@ -3,6 +3,7 @@ package de.jaunikapauni.axcalendar;
 import de.jaunikapauni.axcalendar.command.CalendarCommand;
 import de.jaunikapauni.axcalendar.listener.InventoryClickListener;
 import de.jaunikapauni.axcalendar.manager.DatabaseManager;
+import de.jaunikapauni.axcalendar.manager.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -16,6 +17,10 @@ public final class AxCalendar extends JavaPlugin {
     public DatabaseManager getDatabaseManager(){
         return databaseManager;
     }
+    PlayerManager playerManager;
+    public PlayerManager getPlayerManager(){
+        return playerManager;
+    }
 
     @Override
     public void onEnable() {
@@ -23,6 +28,7 @@ public final class AxCalendar extends JavaPlugin {
         saveDefaultConfig();
         try{
             databaseManager = new DatabaseManager(this);
+            playerManager = new PlayerManager(this);
             if(databaseManager.initDatabaseTable1() == false){
                 Bukkit.getServer().shutdown();
             }
