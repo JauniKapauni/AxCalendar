@@ -42,7 +42,7 @@ public class InventoryClickListener implements Listener {
             reference.getPlayerManager().claim(p.getUniqueId());
             Bukkit.getScheduler().runTask(reference, () -> {
                 String cmd = reference.getConfig().getString("calendar.day1.command");
-                p.performCommand(cmd);
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("%player%", p.getName()));
             });
         });
     }
