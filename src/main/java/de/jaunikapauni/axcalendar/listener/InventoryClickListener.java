@@ -31,7 +31,11 @@ public class InventoryClickListener implements Listener {
                 ItemStack reward = e.getCurrentItem();
                 if(reward != null){
                     Date last = null;
-                    reference.getPlayerManager().hasClaimedToday(p.getUniqueId());
+                    boolean claimed = reference.getPlayerManager().hasClaimedToday(p.getUniqueId());
+                    if(claimed){
+                        p.sendMessage("Sorry wait until the start of the next day!");
+                        return;
+                    }
                     if(last == null){
                         try(Connection conn = reference.getDatabaseManager().getConnection()){
                             try(PreparedStatement ps = conn.prepareStatement("INSERT INTO players (uuid, last) VALUES (?, NOW())")){
