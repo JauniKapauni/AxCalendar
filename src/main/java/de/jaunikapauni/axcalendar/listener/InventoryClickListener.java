@@ -1,6 +1,7 @@
 package de.jaunikapauni.axcalendar.listener;
 
 import de.jaunikapauni.axcalendar.AxCalendar;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -30,14 +31,20 @@ public class InventoryClickListener implements Listener {
             return;
         }
         Player p = (Player) e.getWhoClicked();
-        boolean claimed = reference.getPlayerManager().hasClaimedToday(p.getUniqueId());
-        if (claimed) {
-            p.sendMessage("Sorry wait until the start of the next day!");
-            return;
-        }
-        reference.getPlayerManager().claim(p.getUniqueId());
-        String cmd = reference.getConfig().getString("calendar.day1.command");
-        p.performCommand(cmd);
+        Bukkit.getScheduler().runTaskAsynchronously(reference, () -> {
+            boolean claimed = reference.getPlayerManager().hasClaimedToday(p.getUniqueId());
+            if (claimed) {
+                Bukkit.getScheduler().runTask(reference, () -> {
+                    p.sendMessage("Sorry wait until the start of the next day!");
+                });
+                return;
+            }
+            reference.getPlayerManager().claim(p.getUniqueId());
+            Bukkit.getScheduler().runTask(reference, () -> {
+                String cmd = reference.getConfig().getString("calendar.day1.command");
+                p.performCommand(cmd);
+            });
+        });
     }
 }
 
