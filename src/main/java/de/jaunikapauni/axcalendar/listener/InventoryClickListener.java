@@ -39,20 +39,23 @@ public class InventoryClickListener implements Listener {
             return;
         }
         Bukkit.getScheduler().runTaskAsynchronously(reference, () -> {
-            boolean claimed = reference.getPlayerManager().hasClaimedToday(p.getUniqueId());
-            if (claimed) {
+            try {
+                boolean claimed = reference.getPlayerManager().hasClaimedToday(p.getUniqueId());
+                if (claimed) {
+                    Bukkit.getScheduler().runTask(reference, () -> {
+                        p.sendMessage("Sorry wait until the start of the next day!");
+                    });
+                    return;
+                }
+                reference.getPlayerManager().claim(p.getUniqueId());
                 Bukkit.getScheduler().runTask(reference, () -> {
-                    p.sendMessage("Sorry wait until the start of the next day!");
+                    String cmd = reference.getConfig().getString("calendar.day1.command");
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("%player%", p.getName()));
                 });
-                return;
+            } finally {
+                claiming.remove(p.getUniqueId());
             }
-            reference.getPlayerManager().claim(p.getUniqueId());
-            Bukkit.getScheduler().runTask(reference, () -> {
-                String cmd = reference.getConfig().getString("calendar.day1.command");
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("%player%", p.getName()));
-            });
         });
-        claiming.remove(p.getUniqueId());
     }
 }
 
