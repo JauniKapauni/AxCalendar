@@ -21,14 +21,14 @@ public class InventoryClickListener implements Listener {
         if(e.getView().getTitle().equals("Calendar")){
             e.setCancelled(true);
             if(e.getCurrentItem() != null){
+                if(e.getSlot() != 0){
+                    return;
+                }
                 if(!(e.getWhoClicked() instanceof Player)){
                     return;
                 }
                 Player p = (Player) e.getWhoClicked();
-                ItemStack reward = e.getInventory().getItem(0);
-                if(e.getSlot() != 0){
-                    return;
-                }
+                ItemStack reward = e.getCurrentItem();
                 if(reward != null){
                     Date last = null;
                     try(Connection conn = reference.getDatabaseManager().getConnection()){
