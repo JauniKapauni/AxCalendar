@@ -1,7 +1,18 @@
 calendar:
-  day1:
-    name: /plugins
-    command: plugins
+  title: "Calendar"
+  days:
+    1:
+      material: COAL_BLOCK
+      name: "Day 1"
+      command: "give %player% coal 1"
+    2:
+      material: IRON_BLOCK
+      name: "Day 2"
+      command: "give %player% iron_ingot 1"
+    3:
+      material: DIAMOND_BLOCK
+      name: "Day 3"
+      command: "give %player% diamond 1"
 database:
   host: localhost
   port: 3306

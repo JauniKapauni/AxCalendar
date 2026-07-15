@@ -24,7 +24,7 @@ public class InventoryClickListener implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
-        if (!e.getView().getTitle().equals("Calendar")) {
+        if (!e.getView().getTitle().equals(reference.getConfig().getString("calendar.title"))) {
             return;
         }
         e.setCancelled(true);
@@ -35,25 +35,28 @@ public class InventoryClickListener implements Listener {
             return;
         }
         Player p = (Player) e.getWhoClicked();
+        UUID uuid = p.getUniqueId();
+        String name = p.getName();
         if(!claiming.add(p.getUniqueId())){
             return;
         }
         Bukkit.getScheduler().runTaskAsynchronously(reference, () -> {
             try {
-                boolean claimed = reference.getPlayerManager().hasClaimedToday(p.getUniqueId());
+                boolean claimed = reference.getPlayerManager().hasClaimedToday(uuid);
                 if (claimed) {
                     Bukkit.getScheduler().runTask(reference, () -> {
                         p.sendMessage("Sorry wait until the start of the next day!");
                     });
                     return;
                 }
-                reference.getPlayerManager().claim(p.getUniqueId());
+                int day = reference.getPlayerManager().getDay(uuid);
+                reference.getPlayerManager().claim(uuid);
                 Bukkit.getScheduler().runTask(reference, () -> {
-                    String cmd = reference.getConfig().getString("calendar.day1.command");
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("%player%", p.getName()));
+                    String cmd = reference.getConfig().getString("calendar.days." + day + ".command");
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("%player%", name));
                 });
             } finally {
-                claiming.remove(p.getUniqueId());
+                claiming.remove(uuid);
             }
         });
     }
