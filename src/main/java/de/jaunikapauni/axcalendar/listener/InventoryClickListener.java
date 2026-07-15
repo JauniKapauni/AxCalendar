@@ -10,6 +10,9 @@ import org.bukkit.inventory.ItemStack;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class InventoryClickListener implements Listener {
     AxCalendar reference;
@@ -17,6 +20,7 @@ public class InventoryClickListener implements Listener {
     public InventoryClickListener(AxCalendar reference) {
         this.reference = reference;
     }
+    Set<UUID> claiming = ConcurrentHashMap.newKeySet();
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
@@ -31,6 +35,9 @@ public class InventoryClickListener implements Listener {
             return;
         }
         Player p = (Player) e.getWhoClicked();
+        if(!claiming.add(p.getUniqueId())){
+            return;
+        }
         Bukkit.getScheduler().runTaskAsynchronously(reference, () -> {
             boolean claimed = reference.getPlayerManager().hasClaimedToday(p.getUniqueId());
             if (claimed) {
@@ -45,6 +52,7 @@ public class InventoryClickListener implements Listener {
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("%player%", p.getName()));
             });
         });
+        claiming.remove(p.getUniqueId());
     }
 }
 
