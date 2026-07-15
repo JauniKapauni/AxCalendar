@@ -23,6 +23,9 @@ public class InventoryClickListener implements Listener {
             if(e.getCurrentItem() != null){
                 Player p = (Player) e.getWhoClicked();
                 ItemStack reward = e.getInventory().getItem(0);
+                if(e.getSlot() != 0){
+                    return;
+                }
                 if(reward != null){
                     Date last = null;
                     try(Connection conn = reference.getDatabaseManager().getConnection()){
